@@ -1,0 +1,19 @@
+{
+  "name": "expiration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cygnetops/common": "^1.0.29",
+    "@types/bull": "^3.15.2",
+    "bull": "^3.22.10",
+    "node-nats-streaming": "^0.3.2",
+    "ts-node-dev": "^1.1.6"
+  }
+}

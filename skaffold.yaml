@@ -22,6 +22,14 @@ build:
       context: orders
       docker:
         dockerfile: Dockerfile
+    - image: philnguyensherlock/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+    - image: philnguyensherlock/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
 manifests:
   rawYaml:
     - infra/k8s/*
