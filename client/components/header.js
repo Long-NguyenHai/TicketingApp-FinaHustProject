@@ -10,7 +10,7 @@ export default ({ currentUser }) => {
     .map(({ label, href }) => {
       return (
         <li key={href} className="nav-item">
-          <Link href={href}>
+          <Link href={href} legacyBehavior>
             <a className="nav-link">{label}</a>
           </Link>
         </li>
@@ -18,9 +18,9 @@ export default ({ currentUser }) => {
     });
 
   return (
-    <nav className="navbar navbar-light bg-light">
-      <Link href="/">
-        <a className="navbar-brand">GitTix</a>
+    <nav className="navbar navbar-light bg-light" style={{padding: '0 32px', borderBottom: '2px solid rgb(230, 235, 245)'} }>
+      <Link href="/" legacyBehavior style={{border: '1px solid gray'}}>
+        <a className="navbar-brand">HalloTicket</a>
       </Link>
 
       <div className="d-flex justify-content-end">
