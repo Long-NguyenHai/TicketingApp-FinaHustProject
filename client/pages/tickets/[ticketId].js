@@ -8,18 +8,59 @@ const TicketShow = ({ ticket }) => {
     body: {
       ticketId: ticket.id,
     },
-    onSuccess: (order) =>
-      Router.push('/orders/[orderId]', `/orders/${order.id}`),
+    onSuccess: (order) => Router.push('/orders/[orderId]', `/orders/${order.id}`),
   });
 
   return (
-    <div>
-      <h1>{ticket.title}</h1>
-      <h4>Price: {ticket.price}</h4>
-      {errors}
-      <button onClick={() => doRequest()} className="btn btn-primary">
-        Purchase
-      </button>
+    <div className="container mt-4">
+      <div className="card">
+        <div className="card-body">
+          <h1 className="card-title">{ticket.title}</h1>
+          <h4 className="card-subtitle mb-2 text-muted">Price: ${ticket.price}</h4>
+          {errors && <div className="alert alert-danger">{errors}</div>}
+          <button onClick={() => doRequest()} className="btn btn-primary">
+            Purchase
+          </button>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .card {
+          width: 40%;
+          height: 30%
+          border: 1px solid #ccc;
+          border-radius: 8px;
+        }
+
+        .card-body {
+          padding: 20px;
+        }
+
+        .card-title {
+          font-size: 24px;
+          font-weight: bold;
+        }
+
+        .card-subtitle {
+          font-size: 18px;
+          color: #666;
+        }
+
+        .btn-primary {
+          margin-top: 20px;
+          width: 100%;
+        }
+
+        .alert {
+          margin-top: 20px;
+        }
+      `}</style>
     </div>
   );
 };

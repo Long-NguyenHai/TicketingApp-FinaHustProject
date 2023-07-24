@@ -4,6 +4,8 @@ export default ({ currentUser }) => {
   const links = [
     !currentUser && { label: 'Sign Up', href: '/auth/signup' },
     !currentUser && { label: 'Sign In', href: '/auth/signin' },
+    currentUser && { label: 'Create Events', href: '/tickets/new' },
+    currentUser && { label: 'My Orders', href: '/orders' },
     currentUser && { label: 'Sign Out', href: '/auth/signout' }
   ]
     .filter(linkConfig => linkConfig)
@@ -11,16 +13,16 @@ export default ({ currentUser }) => {
       return (
         <li key={href} className="nav-item">
           <Link href={href} legacyBehavior>
-            <a className="nav-link">{label}</a>
+            <a className="nav-link" style={{ color: 'white' }}>{label}</a>
           </Link>
         </li>
       );
     });
 
   return (
-    <nav className="navbar navbar-light bg-light" style={{padding: '0 32px', borderBottom: '2px solid rgb(230, 235, 245)'} }>
-      <Link href="/" legacyBehavior style={{border: '1px solid gray'}}>
-        <a className="navbar-brand">HalloTicket</a>
+    <nav className="navbar navbar-dark bg-dark" style={{ paddingLeft: '20px', paddingRight: '20px' }}>
+      <Link href="/" legacyBehavior>
+        <a className="navbar-brand" style={{ color: 'white', fontWeight: 'bold', fontSize: '24px' }}>HalloTicket</a>
       </Link>
 
       <div className="d-flex justify-content-end">

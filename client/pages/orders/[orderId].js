@@ -29,19 +29,48 @@ const OrderShow = ({ order, currentUser }) => {
   }, [order]);
 
   if (timeLeft < 0) {
-    return <div>Order Expired</div>;
+    return <div className="alert alert-danger">Order Expired</div>;
   }
 
   return (
-    <div>
-      Time left to pay: {timeLeft} seconds
-      <StripeCheckout
-        token={({ id }) => doRequest({ token: id })}
-        stripeKey="pk_test_JMdyKVvf8EGTB0Fl28GsN7YY"
-        amount={order.ticket.price * 100}
-        email={currentUser.email}
-      />
-      {errors}
+    <div className="container mt-4">
+      <div className="card">
+        <div className="card-body">
+          <h4 className="card-title">Time left to pay: {timeLeft} seconds</h4>
+          <StripeCheckout
+            token={({ id }) => doRequest({ token: id })}
+            stripeKey="pk_test_51NWiwHBdLuFrfIVOWvzQ3GxJnyz6oUUOgijOqN9jOzabndE9dETWB7Cc4HO4jGe1csKL3Td6nt97gCxbqutqxvdJ00xVVBrvjk"
+            amount={order.ticket.price * 100}
+            email={currentUser.email}
+            style={{ width: '100%' }}
+          />
+          {errors && <div className="alert alert-danger mt-4">{errors}</div>}
+        </div>
+      </div>
+
+      <style jsx>{`
+        .container {
+          display: flex;
+          justify-content: center;
+        }
+        
+        .card {
+          width: 40%;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          padding: 20px;
+        }
+
+        .card-title {
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+
+        .alert-danger {
+          margin-top: 20px;
+        }
+      `}</style>
     </div>
   );
 };
