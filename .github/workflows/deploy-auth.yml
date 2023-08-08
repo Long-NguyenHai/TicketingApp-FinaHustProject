@@ -1,0 +1,26 @@
+name: deploy-auth
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'auth/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - run: cd auth && docker build -t philnguyensherlock/auth .
+      - run: docker push philnguyensherlock/auth
+      - uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          version: 'latest'
+          credentials_json: '${{ secrets.GCP_CREDENTIALS_JSON }}'
+      - run: gcloud container clusters get-credentials ticketing --zone asia-southeast1-a --project ticketing-final-hust
+      - run: kubectl rollout restart deployment auth-depl
