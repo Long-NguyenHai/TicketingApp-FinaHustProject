@@ -22,5 +22,5 @@ jobs:
         with:
           version: 'latest'
           credentials_json: '${{ secrets.GCP_CREDENTIALS_JSON }}'
-      - run: gcloud container clusters get-credentials ticketing --zone asia-southeast1-a --project ticketing-final-hust
+      - run: gcloud auth login && gcloud config set account sherlock.gnol@gmail.com && gcloud container clusters get-credentials ticketing --zone asia-southeast1-a --project ticketing-final-hust
       - run: kubectl rollout restart deployment auth-depl
