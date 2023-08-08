@@ -28,6 +28,12 @@ const OrderShow = ({ order, currentUser }) => {
     };
   }, [order]);
 
+  const formatTimeLeft = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
+
   if (timeLeft < 0) {
     return <div className="alert alert-danger">Order Expired</div>;
   }
@@ -36,7 +42,7 @@ const OrderShow = ({ order, currentUser }) => {
     <div className="container mt-4">
       <div className="card">
         <div className="card-body">
-          <h4 className="card-title">Time left to pay: {timeLeft} seconds</h4>
+          <h4 className="card-title">Time left to pay: {formatTimeLeft(timeLeft)} seconds</h4>
           <StripeCheckout
             token={({ id }) => doRequest({ token: id })}
             stripeKey="pk_test_51NWiwHBdLuFrfIVOWvzQ3GxJnyz6oUUOgijOqN9jOzabndE9dETWB7Cc4HO4jGe1csKL3Td6nt97gCxbqutqxvdJ00xVVBrvjk"
