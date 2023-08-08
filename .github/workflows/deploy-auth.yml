@@ -18,9 +18,11 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - run: cd auth && docker build -t philnguyensherlock/auth .
       - run: docker push philnguyensherlock/auth
-      - uses: 'google-github-actions/setup-gcloud@v1'
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
         with:
-          version: 'latest'
           credentials_json: '${{ secrets.GCP_CREDENTIALS_JSON }}'
-      - run: gcloud auth login && gcloud config set account sherlock.gnol@gmail.com && gcloud container clusters get-credentials ticketing --zone asia-southeast1-a --project ticketing-final-hust
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+      - run: gcloud container clusters get-credentials ticketing --zone asia-southeast1-a --project ticketing-final-hust
       - run: kubectl rollout restart deployment auth-depl
